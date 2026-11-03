@@ -2,9 +2,27 @@ import { NextResponse } from "next/server";
 import { sanitizeEmail } from "@/lib/sanitize";
 import { validateNewsletterData } from "@/lib/validations";
 import { db } from "@/lib/db";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
+    // Rate Limiting (10 subscriptions per minute per IP)
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "anonymous-client";
+    const limit = checkRateLimit(`newsletter_${ip}`, 10, 60 * 1000);
+
+    if (!limit.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Too many subscription attempts. Please wait a minute and try again.",
+        },
+        { status: 429 }
+      );
+    }
+
     const raw = await request.json();
 
     if (!raw || typeof raw !== "object") {

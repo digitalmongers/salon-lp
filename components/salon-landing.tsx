@@ -2,18 +2,12 @@
 
 import * as React from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { MarqueeRibbon } from "@/components/marquee-ribbon";
-import {
-  BookingDialog,
-  GalleryDialogs,
-  MenuDialog,
-  ServiceDetailDialog,
-  VideoDialog,
-} from "@/components/salon-modals";
 import {
   FOOTER_NAV_LINKS,
   FOOTER_SOCIAL_LINKS,
@@ -28,6 +22,28 @@ import {
 } from "@/lib/figma-data";
 import { EMAIL_REGEX, type NewsletterFormValues } from "@/lib/validations";
 import { sanitizeEmail } from "@/lib/sanitize";
+
+// Code-split interactive dialogs to minimize initial JavaScript bundle & eliminate Total Blocking Time (TBT)
+const BookingDialog = dynamic(
+  () => import("@/components/salon-modals").then((m) => m.BookingDialog),
+  { ssr: false }
+);
+const GalleryDialogs = dynamic(
+  () => import("@/components/salon-modals").then((m) => m.GalleryDialogs),
+  { ssr: false }
+);
+const MenuDialog = dynamic(
+  () => import("@/components/salon-modals").then((m) => m.MenuDialog),
+  { ssr: false }
+);
+const ServiceDetailDialog = dynamic(
+  () => import("@/components/salon-modals").then((m) => m.ServiceDetailDialog),
+  { ssr: false }
+);
+const VideoDialog = dynamic(
+  () => import("@/components/salon-modals").then((m) => m.VideoDialog),
+  { ssr: false }
+);
 
 export function SalonLanding() {
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -217,7 +233,6 @@ export function SalonLanding() {
                   priority
                   sizes="(max-width: 1024px) 92vw, 798px"
                   className="object-contain z-10"
-                  loading="eager"
                 />
               </div>
             </div>
@@ -332,7 +347,6 @@ export function SalonLanding() {
               fill
               sizes="(max-width: 1024px) 100vw, 683px"
               className="object-cover grayscale"
-              loading="lazy"
             />
           </div>
 

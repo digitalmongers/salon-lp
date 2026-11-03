@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "upload:cloudinary": "node scripts/upload-to-cloudinary.mjs"
   },
   "dependencies": {
     "next": "16.4.4",

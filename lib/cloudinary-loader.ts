@@ -9,14 +9,11 @@ interface ImageLoaderParams {
 /**
  * Cloudinary Custom Image Loader for Next.js
  *
- * Automatically delivers:
- * - f_auto: WebP / AVIF based on browser support
- * - q_auto: Intelligent perceptual compression
- * - c_limit, w_{width}: Dynamically resized responsive widths
- *
- * Configured via:
- * - NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME (required for Cloudinary delivery)
- * - NEXT_PUBLIC_CLOUDINARY_FOLDER (optional folder prefix, e.g. "hair-stylist")
+ * Behavior:
+ * - Local Development: Serves local static files from /public to ensure instant,
+ *   offline visibility without depending on remote Cloudinary uploads.
+ *   (Can be overridden with NEXT_PUBLIC_FORCE_CLOUDINARY=true).
+ * - Production: Delivers via Cloudinary with f_auto, q_auto, and responsive resizing.
  */
 export default function cloudinaryLoader({
   src,
@@ -28,15 +25,23 @@ export default function cloudinaryLoader({
     return src;
   }
 
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
-
-  // If no Cloudinary cloud name is provided (e.g. local dev), fallback to local static serving
-  if (!cloudName) {
+  // If the src is already an external URL, pass it through directly
+  if (src.startsWith("http://") || src.startsWith("https://")) {
     return src;
   }
 
-  // If the src is already a full Cloudinary or remote URL, pass it through
-  if (src.startsWith("http://") || src.startsWith("https://")) {
+  const isDev = process.env.NODE_ENV === "development";
+  const forceCloudinary = process.env.NEXT_PUBLIC_FORCE_CLOUDINARY === "true";
+
+  // In local development, default to local static files unless explicitly forced
+  if (isDev && !forceCloudinary) {
+    return src;
+  }
+
+  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+
+  // If no Cloudinary cloud name is configured, serve local static files
+  if (!cloudName) {
     return src;
   }
 
@@ -56,4 +61,3 @@ export default function cloudinaryLoader({
 
   return `https://res.cloudinary.com/${cloudName}/image/upload/${params.join(",")}/${folder}${cleanSrc}`;
 }
-

@@ -42,6 +42,9 @@ if (process.env.NODE_ENV !== "production") {
   globalForSalon.salonStorage = storage;
 }
 
+const MAX_BOOKINGS = 1000;
+const MAX_SUBSCRIBERS = 2500;
+
 export const db = {
   // Bookings
   createBooking(
@@ -54,6 +57,12 @@ export const db = {
       status: "pending",
     };
     storage.bookings.unshift(record);
+
+    // Bounded array capacity to prevent memory leaks under stress
+    if (storage.bookings.length > MAX_BOOKINGS) {
+      storage.bookings.length = MAX_BOOKINGS;
+    }
+
     return record;
   },
 
@@ -77,6 +86,12 @@ export const db = {
       subscribedAt: new Date().toISOString(),
     };
     storage.subscribers.unshift(record);
+
+    // Bounded subscriber array capacity
+    if (storage.subscribers.length > MAX_SUBSCRIBERS) {
+      storage.subscribers.length = MAX_SUBSCRIBERS;
+    }
+
     return { record, isNew: true };
   },
 

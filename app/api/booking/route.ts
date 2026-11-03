@@ -10,9 +10,27 @@ import {
   BookingFormValues,
 } from "@/lib/validations";
 import { db } from "@/lib/db";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(request: Request) {
   try {
+    // Rate Limiting (10 submissions per minute per IP)
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      request.headers.get("x-real-ip") ||
+      "anonymous-client";
+    const limit = checkRateLimit(`booking_${ip}`, 10, 60 * 1000);
+
+    if (!limit.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Too many booking requests. Please wait a minute and try again.",
+        },
+        { status: 429 }
+      );
+    }
+
     const raw = await request.json();
 
     if (!raw || typeof raw !== "object") {
