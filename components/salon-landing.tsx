@@ -211,7 +211,7 @@ export function SalonLanding() {
                 />
                 {/* Seamless High-Res Composed Ellipse + Crown Cutout */}
                 <Image
-                  src="/images/hero-composed.png"
+                  src="/images/hero-composed.webp"
                   alt="Brunette hairdresser smiling holding professional salon scissors"
                   fill
                   priority
@@ -327,7 +327,7 @@ export function SalonLanding() {
           {/* B&W Studio Portrait (#4001:79: 683x380) */}
           <div className="lg:col-span-7 relative aspect-[683/380] w-full overflow-hidden bg-[#272422]">
             <Image
-              src="/images/about-me.png"
+              src="/images/about-me.webp"
               alt="Smiling hairstylist holding lock of hair and shears"
               fill
               sizes="(max-width: 1024px) 100vw, 683px"
@@ -489,7 +489,7 @@ export function SalonLanding() {
           className="group relative aspect-[1239/726] w-full overflow-hidden bg-[#DFDFDF] cursor-pointer"
         >
           <Image
-            src="/images/video-banner.png"
+            src="/images/video-banner.webp"
             alt="Model smiling with dynamic flowing hair in black and white"
             fill
             sizes="(max-width: 1440px) 95vw, 1239px"
@@ -501,7 +501,7 @@ export function SalonLanding() {
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="relative flex h-[54px] w-[78px] sm:h-[64.5px] sm:w-[92.25px] items-center justify-center transition-transform duration-300 group-hover:scale-110">
               <Image
-                src="/images/youtube-play-725df5.png"
+                src="/icons/youtube-play.svg"
                 alt=""
                 fill
                 className="object-contain drop-shadow-lg"
@@ -528,7 +528,7 @@ export function SalonLanding() {
           <div className="lg:col-span-4 xl:w-[392px]">
             <div className="relative aspect-[392/376] w-full overflow-hidden rounded-[7.5px] bg-[#272422]">
               <Image
-                src="/images/service-2.png"
+                src="/images/service-2.webp"
                 alt="Stylist brushing and shaping client hair in salon"
                 fill
                 sizes="(max-width: 1024px) 100vw, 392px"
@@ -559,7 +559,7 @@ export function SalonLanding() {
           <div className="lg:col-span-4 lg:-mt-[135px] lg:ml-auto w-full lg:max-w-[324px]">
             <div className="relative aspect-[324/374] w-full overflow-hidden rounded-[7.5px] bg-[#272422]">
               <Image
-                src="/images/transform-right.png"
+                src="/images/transform-right.webp"
                 alt="Client with glossy long dark hair seated in studio chair"
                 fill
                 sizes="(max-width: 1024px) 100vw, 324px"

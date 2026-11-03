@@ -30,7 +30,7 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "polished-hair",
     title: "Polished Hair",
-    image: "/images/service-1.png",
+    image: "/images/service-1.webp",
     arrowIcon: "/icons/num-01.svg",
     duration: "60 min",
     price: "£120",
@@ -40,7 +40,7 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "glam-locks",
     title: "Glam Locks",
-    image: "/images/service-2.png",
+    image: "/images/service-2.webp",
     arrowIcon: "/icons/num-02.svg",
     featured: true,
     duration: "90 min",
@@ -51,7 +51,7 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "velvet-strands",
     title: "Velvet Strands",
-    image: "/images/service-3.png",
+    image: "/images/service-3.webp",
     arrowIcon: "/icons/num-03.svg",
     duration: "75 min",
     price: "£150",
@@ -61,7 +61,7 @@ export const SERVICES: ServiceItem[] = [
   {
     id: "locks-of-love",
     title: "Locks of Love",
-    image: "/images/service-4.png",
+    image: "/images/service-4.webp",
     arrowIcon: "/icons/num-04.svg",
     duration: "75 min",
     price: "£140",
@@ -75,25 +75,25 @@ export const GALLERY_TOP_LEFT: GalleryItem[] = [
     id: "tl-1",
     title: "Soft Auburn Curls",
     category: "Glam Locks",
-    image: "/images/gallery-tl-1-3aa493.png",
+    image: "/images/gallery-tl-1-3aa493.webp",
   },
   {
     id: "tl-2",
     title: "Sculpted Blonde Updo",
     category: "Editorial Styling",
-    image: "/images/gallery-tl-2-f372e5.png",
+    image: "/images/gallery-tl-2-f372e5.webp",
   },
   {
     id: "tl-3",
     title: "Sleek Midnight Shine",
     category: "Polished Hair",
-    image: "/images/gallery-tl-3-74930c.png",
+    image: "/images/gallery-tl-3-74930c.webp",
   },
   {
     id: "tl-4",
     title: "Warm Copper Twist",
     category: "Locks of Love",
-    image: "/images/gallery-tl-4-718166.png",
+    image: "/images/gallery-tl-4-718166.webp",
   },
 ];
 
@@ -101,7 +101,7 @@ export const GALLERY_TOP_RIGHT_LARGE: GalleryItem = {
   id: "tr-large",
   title: "Voluminous Studio Curls",
   category: "Velvet Strands",
-  image: "/images/gallery-tr-large-d937cc.png",
+  image: "/images/gallery-tr-large-d937cc.webp",
   featured: true,
 };
 
@@ -109,7 +109,7 @@ export const GALLERY_BOTTOM_LEFT_LARGE: GalleryItem = {
   id: "bl-large",
   title: "Textured Editorial Volume",
   category: "Glam Locks",
-  image: "/images/gallery-bl-large-73a784.png",
+  image: "/images/gallery-bl-large-73a784.webp",
   featured: true,
 };
 
@@ -118,25 +118,25 @@ export const GALLERY_BOTTOM_RIGHT: GalleryItem[] = [
     id: "br-1",
     title: "Satin Bronze Waves",
     category: "Polished Hair",
-    image: "/images/gallery-br-1-4357d7.png",
+    image: "/images/gallery-br-1-4357d7.webp",
   },
   {
     id: "br-2",
     title: "Defined Spiral Curls",
     category: "Locks of Love",
-    image: "/images/gallery-br-2-554f45.png",
+    image: "/images/gallery-br-2-554f45.webp",
   },
   {
     id: "br-3",
     title: "Tousled Studio Layers",
     category: "Velvet Strands",
-    image: "/images/gallery-br-3.png",
+    image: "/images/gallery-br-3.webp",
   },
   {
     id: "br-4",
     title: "Golden Honey Waves",
     category: "Glam Locks",
-    image: "/images/gallery-br-4-2eb786.png",
+    image: "/images/gallery-br-4-2eb786.webp",
   },
 ];
 
@@ -150,27 +150,27 @@ export const ALL_GALLERY_ITEMS: GalleryItem[] = [
 export const INSTAGRAM_IMAGES = [
   {
     id: "ig-1",
-    src: "/images/service-4.png",
+    src: "/images/service-4.webp",
     alt: "Precision salon haircut session",
   },
   {
     id: "ig-2",
-    src: "/images/insta-2.png",
+    src: "/images/insta-2.webp",
     alt: "Bridal updo styling in salon mirror",
   },
   {
     id: "ig-3",
-    src: "/images/insta-3.png",
+    src: "/images/insta-3.webp",
     alt: "Relaxing salon hair wash and spa ritual",
   },
   {
     id: "ig-4",
-    src: "/images/insta-4.png",
+    src: "/images/insta-4.webp",
     alt: "Glamorous curls finishing touch",
   },
   {
     id: "ig-5",
-    src: "/images/insta-5.png",
+    src: "/images/insta-5.webp",
     alt: "Master stylists portrait with shears",
   },
 ] as const;
