@@ -780,7 +780,7 @@ export function SalonLanding() {
               <span className="text-white">HairDresser.</span>
               <span className="text-[#B9B9B9]">
                 {" "}
-                All Rights Reserved © {new Date().getFullYear()}
+                All Rights Reserved © 2024
               </span>
             </p>
 
