@@ -2,7 +2,12 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://hairdresser-salon.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://salon-lp-six.vercel.app");
 
 export const viewport: Viewport = {
   themeColor: "#1C1D20",
@@ -19,10 +24,10 @@ export const metadata: Metadata = {
   },
   description:
     "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
-  applicationName: "HairDresser Studio",
-  authors: [{ name: "HairDresser Studio", url: siteUrl }],
-  creator: "HairDresser Studio",
-  publisher: "HairDresser Studio",
+  applicationName: "Hair Stylo Studio",
+  authors: [{ name: "Hair Stylo Studio", url: siteUrl }],
+  creator: "Hair Stylo Studio",
+  publisher: "Hair Stylo Studio",
   keywords: [
     "Hairdresser",
     "Hair Salon",
@@ -46,16 +51,27 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_GB",
     url: siteUrl,
-    siteName: "HairDresser Salon & Stylist",
+    siteName: "Hair Stylo Studio, London",
     title: "Hairdresser & Salon | Personal Stylist Portfolio",
     description:
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
+    images: [
+      {
+        url: `${siteUrl}/og-image.png`,
+        secureUrl: `${siteUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        type: "image/png",
+        alt: "Hair Stylo Studio, London | Personal Stylist Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hairdresser & Salon | Personal Stylist Portfolio",
     description:
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
+    images: [`${siteUrl}/og-image.png`],
     creator: "@hairdresser",
   },
   robots: {
