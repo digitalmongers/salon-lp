@@ -9,11 +9,11 @@ interface ImageLoaderParams {
 /**
  * Cloudinary Custom Image Loader for Next.js
  *
- * Behavior:
- * - Local Development: Serves local static files from /public to ensure instant,
- *   offline visibility without depending on remote Cloudinary uploads.
- *   (Can be overridden with NEXT_PUBLIC_FORCE_CLOUDINARY=true).
- * - Production: Delivers via Cloudinary with f_auto, q_auto, and responsive resizing.
+ * Delivers images via Cloudinary with f_auto, q_auto, and responsive c_limit widths
+ * in both local development and production.
+ * Note: Cloudinary Dynamic Folders do not add UI folder names to delivery URLs,
+ * so local "/images/<file>.webp" maps directly to "<file>.webp" unless
+ * NEXT_PUBLIC_CLOUDINARY_FOLDER is explicitly configured for Fixed Folder prefixes.
  */
 export default function cloudinaryLoader({
   src,
@@ -30,23 +30,20 @@ export default function cloudinaryLoader({
     return src;
   }
 
-  const isDev = process.env.NODE_ENV === "development";
-  const forceCloudinary = process.env.NEXT_PUBLIC_FORCE_CLOUDINARY === "true";
-
-  // In local development, default to local static files unless explicitly forced
-  if (isDev && !forceCloudinary) {
-    return src;
-  }
-
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
 
-  // If no Cloudinary cloud name is configured, serve local static files
+  // If no Cloudinary cloud name is configured, fallback to local static files
   if (!cloudName) {
     return src;
   }
 
-  // Remove leading slash for Cloudinary pathing
-  const cleanSrc = src.startsWith("/") ? src.slice(1) : src;
+  const rawFolder = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER?.replace(
+    /^\/+|\/+$/g,
+    ""
+  );
+
+  // Strip leading "/images/" or "/" so "/images/hero-composed.webp" -> "hero-composed.webp"
+  const cleanSrc = src.replace(/^\/?(images\/)?/, "");
 
   const params = [
     "f_auto",
@@ -55,9 +52,7 @@ export default function cloudinaryLoader({
     `q_${quality || "auto"}`,
   ];
 
-  const folder = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER
-    ? `${process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER.replace(/^\/|\/$/g, "")}/`
-    : "";
+  const folderPrefix = rawFolder ? `${rawFolder}/` : "";
 
-  return `https://res.cloudinary.com/${cloudName}/image/upload/${params.join(",")}/${folder}${cleanSrc}`;
+  return `https://res.cloudinary.com/${cloudName}/image/upload/${params.join(",")}/${folderPrefix}${cleanSrc}`;
 }

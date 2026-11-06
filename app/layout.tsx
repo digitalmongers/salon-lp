@@ -57,12 +57,12 @@ export const metadata: Metadata = {
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
-        secureUrl: `${siteUrl}/og-image.png`,
+        url: `https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp`,
+        secureUrl: `https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp`,
         width: 1200,
         height: 630,
-        type: "image/png",
-        alt: "Hair Stylo Studio, London | Personal Stylist Portfolio",
+        type: "image/webp",
+        alt: "Hair Stylo Studio, London | Laura Smith",
       },
     ],
   },

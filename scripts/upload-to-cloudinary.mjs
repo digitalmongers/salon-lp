@@ -40,7 +40,7 @@ console.log(`Found ${files.length} images to upload to Cloudinary (${cloudName})
 
 for (const file of files) {
   const filePath = path.join(imagesDir, file);
-  const publicId = `images/${file.replace(/\.webp$/, "")}`;
+  const publicId = file.replace(/\.webp$/, "");
   const timestamp = Math.round(Date.now() / 1000);
 
   const formData = new FormData();

@@ -45,6 +45,12 @@ const VideoDialog = dynamic(
   { ssr: false }
 );
 
+const HERO_VIDEO_URL =
+  process.env.NEXT_PUBLIC_CLOUDINARY_VIDEO_URL ||
+  "https://res.cloudinary.com/gps27k9y/video/upload/f_auto,q_auto/v1793947295/Modern_salon_interior_tour_9c3c440d_1080p.mp4";
+const HERO_VIDEO_FALLBACK_URL =
+  "https://res.cloudinary.com/gps27k9y/video/upload/v1793947295/Modern_salon_interior_tour_9c3c440d_1080p.mp4";
+
 export function SalonLanding() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [bookingOpen, setBookingOpen] = React.useState(false);
@@ -61,10 +67,21 @@ export function SalonLanding() {
   );
   const [viewAllOpen, setViewAllOpen] = React.useState(false);
   const [videoOpen, setVideoOpen] = React.useState(false);
+  const heroVideoRef = React.useRef<HTMLVideoElement>(null);
+  const showcaseVideoRef = React.useRef<HTMLVideoElement>(null);
   const [newsletterServerSuccess, setNewsletterServerSuccess] =
     React.useState<string | null>(null);
   const [newsletterServerError, setNewsletterServerError] =
     React.useState<string | null>(null);
+
+  React.useEffect(() => {
+    if (heroVideoRef.current) {
+      heroVideoRef.current.playbackRate = 0.6;
+    }
+    if (showcaseVideoRef.current) {
+      showcaseVideoRef.current.playbackRate = 0.6;
+    }
+  }, []);
 
   const {
     register: registerNewsletter,
@@ -137,10 +154,36 @@ export function SalonLanding() {
           HEADER + HERO SECTION (#4001:15 .. #4001:50)
       ========================================================= */}
       <section className="relative overflow-hidden">
+        {/* Full-Bleed Background Video + Slight Blur Overlay */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        >
+          <video
+            ref={heroVideoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onLoadedMetadata={(e) => {
+              e.currentTarget.playbackRate = 0.6;
+            }}
+            onPlay={(e) => {
+              e.currentTarget.playbackRate = 0.6;
+            }}
+            className="h-full w-full object-cover scale-105"
+          >
+            <source src={HERO_VIDEO_URL} />
+            <source src={HERO_VIDEO_FALLBACK_URL} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-[#1C1D20]/60 backdrop-blur-[3px]" />
+        </div>
+
         {/* Architectural 10% White Hairline Grid (#4001:15) */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 mx-auto max-w-[1440px] h-[772px] overflow-hidden"
+          className="pointer-events-none absolute inset-x-0 top-0 z-[1] mx-auto max-w-[1440px] h-full overflow-hidden"
         >
           {/* Vertical lines spaced ~192.75px */}
           <div className="absolute inset-y-0 left-[142px] hidden lg:flex gap-[192.75px] opacity-10">
@@ -163,7 +206,7 @@ export function SalonLanding() {
               href="#home"
               className="font-logo text-[26px] sm:text-[36.29px] font-semibold leading-[37.3px] uppercase tracking-normal text-white"
             >
-              HAIR STYLO
+              LAT OAK``
             </a>
 
             <Button
@@ -186,54 +229,28 @@ export function SalonLanding() {
             </Button>
           </header>
 
-          {/* Hero Split Content */}
-          <div className="relative pt-10 pb-16 lg:pt-[84px] lg:pb-[130px] xl:min-h-[728px] flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10 lg:gap-4">
-            {/* Left Copy Column */}
-            <div className="relative z-20 w-full max-w-[465px] lg:pt-[59px] text-left">
+          {/* Hero Centered Content */}
+          <div className="relative py-16 md:py-16 flex flex-col items-center justify-center text-center">
+            <div className="relative z-20 flex w-full max-w-[680px] flex-col items-center mx-auto text-center">
               <p className="font-serif italic font-light text-[30px] sm:text-[42.48px] leading-[1.05] text-[#F6D9BB]">
                 Laura Smith
               </p>
 
-              <h1 className="mt-4 font-serif font-light text-[54px] sm:text-[74px] xl:text-[91.21px] leading-[1.0] text-white">
+              <h1 className="mt-4 font-serif font-light text-[65px] md:text-[120px] leading-[1.0] text-white">
                 Hairdresser
                 <br />
                 of the year
               </h1>
 
-              <p className="mt-6 max-w-[394px] font-sans font-medium text-[16px] sm:text-[18px] leading-[30px] text-[#B8B0BB]">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                accusantium doloremque.
+              <p className="mt-6 max-w-[420px] mx-auto font-sans font-medium text-[16px] sm:text-[18px] leading-[30px] text-[#B8B0BB]">
+                Bespoke cuts, luminous color, and effortless editorial styling
+                tailored to your natural beauty.
               </p>
 
-              <div className="mt-8">
+              <div className="mt-8 flex justify-center">
                 <Button onClick={() => openBooking("Glam Locks")}>
                   Book now
                 </Button>
-              </div>
-            </div>
-
-            {/* Right Tilted Blue Oval + Stylist Portrait (#4001:48, #4001:49, #4001:183) */}
-            <div className="relative z-10 w-full max-w-[680px] xl:max-w-[798px] lg:-mt-[58px] xl:-mr-[38px] select-none">
-              <div className="relative w-full aspect-[1595/1422]">
-                {/* Offset #3E6A8F Tilted Ring (#4001:48) */}
-                <Image
-                  src="/icons/hero-ring.svg"
-                  alt=""
-                  width={798}
-                  height={542}
-                  aria-hidden="true"
-                  className="pointer-events-none absolute bottom-0 left-0 w-full h-auto z-0"
-                  loading="eager"
-                />
-                {/* Seamless High-Res Composed Ellipse + Crown Cutout */}
-                <Image
-                  src="/images/hero-composed.webp"
-                  alt="Brunette hairdresser smiling holding professional salon scissors"
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 92vw, 798px"
-                  className="object-contain z-10"
-                />
               </div>
             </div>
           </div>
@@ -353,14 +370,14 @@ export function SalonLanding() {
           {/* Right Description + Experience Counter */}
           <div className="lg:col-span-5 max-w-[396px] space-y-[30px]">
             <p className="font-sans font-medium text-[16px] sm:text-[18px] leading-[30px] text-[#B8B0BB]">
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expou.
+              With a passion for effortless movement and healthy shine, I craft
+              personalized haircuts, dimensional color, and signature salon
+              styling tailored to every client.
             </p>
 
             <p className="font-sans font-medium text-[16px] sm:text-[18px] leading-[30px] text-[#B8B0BB]">
-              Expound the actual teachings of the great explorer of the truth,
-              the master-builder of human.
+              Every appointment begins with a thoughtful consultation to
+              highlight your unique features.
             </p>
 
             {/* Vertical Line + 5+ Years of Experience (#4001:82, #4001:47, #4001:36) */}
@@ -502,14 +519,24 @@ export function SalonLanding() {
           }}
           className="group relative aspect-[1239/726] w-full overflow-hidden bg-[#DFDFDF] cursor-pointer"
         >
-          <Image
-            src="/images/video-banner.webp"
-            alt="Model smiling with dynamic flowing hair in black and white"
-            fill
-            sizes="(max-width: 1440px) 95vw, 1239px"
-            className="object-cover grayscale transition-transform duration-700 group-hover:scale-[1.02]"
-            loading="lazy"
-          />
+          <video
+            ref={showcaseVideoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            onLoadedMetadata={(e) => {
+              e.currentTarget.playbackRate = 0.6;
+            }}
+            onPlay={(e) => {
+              e.currentTarget.playbackRate = 0.6;
+            }}
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+          >
+            <source src={HERO_VIDEO_URL} />
+            <source src={HERO_VIDEO_FALLBACK_URL} type="video/mp4" />
+          </video>
 
           {/* Centered YouTube Play Button (#4001:81: 92.25x64.5) */}
           <div className="absolute inset-0 flex items-center justify-center">
@@ -555,13 +582,13 @@ export function SalonLanding() {
           {/* Center Copy + Contact Us CTA (#4001:121, #4001:122, #4001:128) */}
           <div className="lg:col-span-4 xl:pl-10 max-w-[360px] space-y-[29px]">
             <p className="font-sans font-medium text-[16px] sm:text-[18px] leading-[30px] text-[#B8B0BB]">
-              But I must explain to you how all this mistaken idea of denouncing
-              pleasure and praising pain was born and I will give you a complete
-              account of the system, and expou.
+              From subtle refreshes to complete hair transformations, we blend
+              precision cutting, restorative gloss treatments, and modern
+              styling for lasting confidence.
             </p>
 
             <p className="font-sans font-medium text-[16px] sm:text-[18px] leading-[30px] text-[#B8B0BB]">
-              Expound the actual teachings of the great explorer.
+              Discover a look crafted exclusively around you.
             </p>
 
             <div>
@@ -782,7 +809,7 @@ export function SalonLanding() {
                   href="#home"
                   className="font-logo font-semibold text-[36px] sm:text-[48.8px] leading-[50.16px] uppercase text-white block"
                 >
-                  HAIR STYLO
+                  LAT OAK
                 </a>
               </div>
             </div>
