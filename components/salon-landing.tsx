@@ -206,7 +206,7 @@ export function SalonLanding() {
               href="#home"
               className="font-logo text-[26px] sm:text-[36.29px] font-semibold leading-[37.3px] uppercase tracking-normal text-white"
             >
-              LAT OAK``
+              LAT OAK
             </a>
 
             <Button
