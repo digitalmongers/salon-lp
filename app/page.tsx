@@ -31,17 +31,17 @@ export const metadata: Metadata = {
     description:
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
     url: siteUrl,
-    siteName: "HairDresser Studio",
+    siteName: "Hair Stylo Studio, London",
     locale: "en_GB",
     type: "website",
     images: [
       {
-        url: `${siteUrl}/og-image.png`,
-        secureUrl: `${siteUrl}/og-image.png`,
+        url: "https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp",
+        secureUrl: "https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp",
         width: 1200,
         height: 630,
-        type: "image/png",
-        alt: "Hairdresser & Salon | Personal Stylist Portfolio",
+        type: "image/webp",
+        alt: "Hair Stylo Studio, London | Laura Smith",
       },
     ],
   },
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     title: "Hairdresser & Salon | Personal Stylist Portfolio",
     description:
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
-    images: [`${siteUrl}/og-image.png`],
+    images: ["https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp"],
     creator: "@hairdresser",
   },
 };

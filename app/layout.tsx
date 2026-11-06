@@ -57,8 +57,8 @@ export const metadata: Metadata = {
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
     images: [
       {
-        url: `https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp`,
-        secureUrl: `https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp`,
+        url: "https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp",
+        secureUrl: "https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp",
         width: 1200,
         height: 630,
         type: "image/webp",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: "Hairdresser & Salon | Personal Stylist Portfolio",
     description:
       "Hairdresser of the year — bespoke cuts, glossy tresses, and transformative salon styling in London.",
-    images: [`${siteUrl}/og-image.png`],
+    images: ["https://res.cloudinary.com/gps27k9y/image/upload/v1793686793/service-2.webp"],
     creator: "@hairdresser",
   },
   robots: {
