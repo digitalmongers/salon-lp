@@ -6,14 +6,15 @@ interface ImageLoaderParams {
   quality?: number;
 }
 
+const DEFAULT_CLOUD_NAME = "gps27k9y";
+
 /**
  * Cloudinary Custom Image Loader for Next.js
  *
  * Delivers images via Cloudinary with f_auto, q_auto, and responsive c_limit widths
  * in both local development and production.
  * Note: Cloudinary Dynamic Folders do not add UI folder names to delivery URLs,
- * so local "/images/<file>.webp" maps directly to "<file>.webp" unless
- * NEXT_PUBLIC_CLOUDINARY_FOLDER is explicitly configured for Fixed Folder prefixes.
+ * so local "/images/<file>.webp" maps directly to "<file>.webp".
  */
 export default function cloudinaryLoader({
   src,
@@ -30,19 +31,10 @@ export default function cloudinaryLoader({
     return src;
   }
 
-  const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const cloudName =
+    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || DEFAULT_CLOUD_NAME;
 
-  // If no Cloudinary cloud name is configured, fallback to local static files
-  if (!cloudName) {
-    return src;
-  }
-
-  const rawFolder = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER?.replace(
-    /^\/+|\/+$/g,
-    ""
-  );
-
-  // Strip leading "/images/" or "/" so "/images/hero-composed.webp" -> "hero-composed.webp"
+  // Strip leading "/images/" or "/" so "/images/about-me.webp" -> "about-me.webp"
   const cleanSrc = src.replace(/^\/?(images\/)?/, "");
 
   const params = [
@@ -52,7 +44,5 @@ export default function cloudinaryLoader({
     `q_${quality || "auto"}`,
   ];
 
-  const folderPrefix = rawFolder ? `${rawFolder}/` : "";
-
-  return `https://res.cloudinary.com/${cloudName}/image/upload/${params.join(",")}/${folderPrefix}${cleanSrc}`;
+  return `https://res.cloudinary.com/${cloudName}/image/upload/${params.join(",")}/${cleanSrc}`;
 }
